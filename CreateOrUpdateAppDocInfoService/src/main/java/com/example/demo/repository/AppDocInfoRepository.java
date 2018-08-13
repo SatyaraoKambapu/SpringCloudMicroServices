@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.example.demo.entity.AppDocInfo;
 
-public interface AppDocInfoRepository extends CrudRepository<AppDocInfo, Integer>{
+public interface AppDocInfoRepository extends CrudRepository<AppDocInfo, Integer>,AppDocInfoRepositoryCustom{
 
 }

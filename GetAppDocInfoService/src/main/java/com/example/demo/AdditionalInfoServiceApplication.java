@@ -6,9 +6,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class GetAppDocInfoServiceApplication {
+public class AdditionalInfoServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GetAppDocInfoServiceApplication.class, args);
+		SpringApplication.run(AdditionalInfoServiceApplication.class, args);
 	}
 }

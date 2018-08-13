@@ -29,6 +29,10 @@ public class AppDocInfoService {
 
 	@Modifying
 	public void updateAppDocInfo(AppDocInfo appDocInfo) {
+		AppDocInfo docInfoExisted = appDocInfoRepository.findByApplication_Id(appDocInfo);
+		if(docInfoExisted != null) {
+			appDocInfo.setId(docInfoExisted.getId());
+		}
 		appDocInfoRepository.save(appDocInfo);
 	}
 

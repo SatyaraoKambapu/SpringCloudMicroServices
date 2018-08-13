@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,20 +47,15 @@ public class AppDocInfoController {
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 		String URL = service_url + "/get";
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<AppDocInfo> result = restTemplate.exchange(URL, HttpMethod.GET, entity, AppDocInfo.class);
+		ResponseEntity<String> result = restTemplate.exchange(URL, HttpMethod.GET, entity, String.class);
 		logger.info("<Result from GetAppDocService>" + result.getBody());
-		AppDocInfo docInfoExisted = result.getBody();
-		String res = null;
-		if (docInfoExisted != null) {
-			res = "Updated the existing row successfully." + "\n" + "This is the Application info "
-					+ appDocInfo.getApplication_name() + " - " + appDocInfo.getApplication_id() + " And"
-					+ " This is the Document info " + appDocInfo.getDocument_name() + " - "
-					+ appDocInfo.getDocument_id();
-			appDocInfo.setId(docInfoExisted.getId());
-		} else {
-			res = "This is The New Application Document Info, There are no existed rows on the input, so Created new row successfully.";
-		}
+		String resultFromService2 = result.getBody();
 		appDocInfoService.updateAppDocInfo(appDocInfo);
-		return res;
+		return resultFromService2;
+	}
+
+	@GetMapping(value = "/getAppDocInfoList")
+	public List<AppDocInfo> getAppDocInfoList() {
+		return appDocInfoService.getAppDocInfoList();
 	}
 }

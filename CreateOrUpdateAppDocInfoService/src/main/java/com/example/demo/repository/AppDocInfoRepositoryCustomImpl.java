@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.entity.AppDocInfo;
-import com.example.demo.service.GetAppDocInfoService;
+import com.example.demo.service.AppDocInfoService;
 
-public class GetAppDocInfoRepositoryCustomImpl implements GetAppDocInfoRepositoryCustom {
+public class AppDocInfoRepositoryCustomImpl implements AppDocInfoRepositoryCustom {
 
 	@Autowired
-	GetAppDocInfoService appDocInfoService;
+	AppDocInfoService appDocInfoService;
 
 	@Override
 	public AppDocInfo findByApplication_Id(AppDocInfo appDocInfoToUpdate) {
