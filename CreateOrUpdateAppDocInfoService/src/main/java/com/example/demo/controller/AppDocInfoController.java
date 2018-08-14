@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.entity.AppDocInfo;
 import com.example.demo.service.AppDocInfoService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Component
 @RestController
@@ -40,6 +41,7 @@ public class AppDocInfoController {
 	}
 
 	@PutMapping(value = "/update")
+	@HystrixCommand(fallbackMethod = "createFallback")
 	public String updateAppDocInfo(@RequestHeader HttpHeaders headers, @RequestBody AppDocInfo appDocInfo) {
 		logger.info("<Application-id>" + headers.get("application-id"));
 		headers.set("application-id", String.valueOf(appDocInfo.getApplication_id()));
@@ -52,6 +54,10 @@ public class AppDocInfoController {
 		String resultFromService2 = result.getBody();
 		appDocInfoService.updateAppDocInfo(appDocInfo);
 		return resultFromService2;
+	}
+
+	private String createFallback(@RequestHeader HttpHeaders headers, @RequestBody AppDocInfo appDocInfo) {
+		return "Ohhhh!   Thank God, Transaction got Rolled Back when inappropriated conditions happen.";
 	}
 
 	@GetMapping(value = "/getAppDocInfoList")
