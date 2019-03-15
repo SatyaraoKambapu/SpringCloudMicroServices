@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -41,7 +42,7 @@ public class AppDocInfoController {
 	}
 
 	@PutMapping(value = "/update")
-	@HystrixCommand(fallbackMethod = "createFallback")
+	//@HystrixCommand(fallbackMethod = "createFallback")
 	public String updateAppDocInfo(@RequestHeader HttpHeaders headers, @RequestBody AppDocInfo appDocInfo) {
 		logger.info("<Application-id>" + headers.get("application-id"));
 		headers.set("application-id", String.valueOf(appDocInfo.getApplication_id()));
@@ -53,11 +54,11 @@ public class AppDocInfoController {
 		logger.info("<Result from GetAppDocService>" + result.getBody());
 		String resultFromService2 = result.getBody();
 		appDocInfoService.updateAppDocInfo(appDocInfo);
-		return resultFromService2;
+		return resultFromService2 + " Also update Done Successfully.";
 	}
 
 	private String createFallback(@RequestHeader HttpHeaders headers, @RequestBody AppDocInfo appDocInfo) {
-		return "Ohhhh!   Thank God, Transaction got Rolled Back when inappropriated conditions happen.";
+		return "Hi I am from getService/get, Happy to Help you. Also update Done Successfully.";
 	}
 
 	@GetMapping(value = "/getAppDocInfoList")

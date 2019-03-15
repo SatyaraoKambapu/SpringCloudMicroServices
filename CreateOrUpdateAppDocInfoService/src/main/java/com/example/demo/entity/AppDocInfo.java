@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "app_doc_info")
 public class AppDocInfo implements Serializable {
@@ -103,6 +106,12 @@ public class AppDocInfo implements Serializable {
 			return false;
 
 		return true;
+	}
+	
+	public static void main(String[] args) throws JsonProcessingException {
+		ObjectMapper om = new ObjectMapper();
+		String s = om.writeValueAsString(new AppDocInfo());
+		System.out.println(s);
 	}
 
 }

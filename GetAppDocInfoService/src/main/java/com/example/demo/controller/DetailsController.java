@@ -20,16 +20,7 @@ public class DetailsController {
 
 	@GetMapping(value = "/get")
 	public String getAppDocInfo(@RequestHeader HttpHeaders headers) {
-		logger.info("Calling get service to fetch the App id and Doc Id");
-		List<String> app_idList = headers.get("application-id");
-		List<String> doc_idList = headers.get("document-id");
-		AppDocInfo docInfo = new AppDocInfo();
-		docInfo.setApplication_id(Long.valueOf(app_idList.get(0)));
-		docInfo.setDocument_id(Long.valueOf(doc_idList.get(0)));
-
-		String res = "This is the Application info " + "Application 1 " + " - " + docInfo.getApplication_id() + " And"
-				+ " This is the Document info " + "Documnet 1" + " - " + docInfo.getDocument_id();
-		return res;
+		return "Hi I am from getService/get, Happy to Help you.";
 	}
 
 }
